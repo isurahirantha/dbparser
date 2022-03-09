@@ -16,6 +16,12 @@ import java.sql.ResultSet;
  */
 public class Dbparser {
     public static void main(String[] args) {
+
+        getUsers();
+        getBookMarks();
+        
+    }
+    public static void getUsers(){
         Connection con = null;
         DBConnection conIns = DBConnection.getConnectionInstance();
         con = conIns.getConnection();
@@ -23,10 +29,38 @@ public class Dbparser {
         try{
             PreparedStatement psmt=con.prepareStatement("SELECT username, password FROM admin"); 
             ResultSet rs = psmt.executeQuery();
+            System.out.println("USERNAME\t\t : \tPASSOWRD");
+            System.out.println("___________________________________");
             while(rs.next()){
-                System.out.println(rs.getString("username"));
-                System.out.println(rs.getString("password"));
-                System.out.println("--");
+                System.out.print(rs.getString("username"));
+                System.out.print(" \t: ");
+                System.out.print(rs.getString("password"));
+                System.out.println();
+            }
+            System.out.println("------------------------------------");
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }finally{
+            if(con!=null){
+                con=null;
+            }
+        }
+    }
+    public static void getBookMarks(){
+        Connection con = null;
+        DBConnection conIns = DBConnection.getConnectionInstance();
+        con = conIns.getConnection();
+        
+        try{
+            PreparedStatement psmt=con.prepareStatement("SELECT name, detail FROM bookmarks"); 
+            ResultSet rs = psmt.executeQuery();
+            System.out.println("URL\t\t : \tDESCRIPTION");
+            System.out.println("___________________________________");
+            while(rs.next()){
+                System.out.print(rs.getString("name"));
+                System.out.print(" \t: ");
+                System.out.print(rs.getString("detail"));
+                System.out.println();
             }
         }catch(Exception ex){
             ex.printStackTrace();
@@ -36,4 +70,5 @@ public class Dbparser {
             }
         }
     }
+    
 }
