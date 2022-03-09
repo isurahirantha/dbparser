@@ -15,15 +15,19 @@ import java.sql.ResultSet;
  * @author isura_s
  */
 public class Dbparser {
-    public static void main(String[] args) {
 
-        getUsers();
-        getBookMarks();
-        
+    public static void main(String[] args) {
+    DBConnection conIns = DBConnection.getConnectionInstance();
+        getUsers(conIns);
+        getBookMarks(conIns);
     }
-    public static void getUsers(){
+    
+    /**
+     * 
+     * @param conIns 
+     */
+    public static void getUsers(DBConnection conIns){
         Connection con = null;
-        DBConnection conIns = DBConnection.getConnectionInstance();
         con = conIns.getConnection();
         
         try{
@@ -46,9 +50,13 @@ public class Dbparser {
             }
         }
     }
-    public static void getBookMarks(){
+    
+    /**
+     * 
+     * @param conIns 
+     */
+    public static void getBookMarks(DBConnection conIns){
         Connection con = null;
-        DBConnection conIns = DBConnection.getConnectionInstance();
         con = conIns.getConnection();
         
         try{
